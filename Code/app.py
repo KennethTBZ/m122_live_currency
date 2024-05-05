@@ -41,7 +41,7 @@ class CMC:
             price = currency['quote']['USD']['price']
             print(f"{i}. {name} ({symbol}): ${price}")
         return sorted_data
-
+    # price still has to be defined when it's called 
     def getPrice(self, symbol):
         url = self.apiurl + '/v1/cryptocurrency/quotes/latest'
         parameters = {'symbol': symbol}
@@ -75,6 +75,7 @@ def send_email(receiver_email, message):
 cmc = CMC(os.getenv("API_KEY"))
 
 @app.route("/")
+#main function
 def home():
     btc_price = cmc.getPrice('BTC')['data']['BTC']['quote']['USD']['price']
     top_currencies = cmc.getTopCurrencies()
@@ -83,6 +84,7 @@ def home():
         email_message += f"{currency['name']}: ${currency['quote']['USD']['price']}\n"
     receiver_email = os.getenv('RECEIVER_EMAIL')
     send_email(receiver_email, email_message)
+    #BTC price and top currencies in index.html
     return render_template("index.html", btc_price=btc_price, top_currencies=top_currencies)
 
 
