@@ -1,4 +1,4 @@
-Please make sure that you have all these packages installed:
+**Please make sure that you have all these packages installed:
 
 Package            Version
 ------------------ --------
@@ -36,3 +36,8 @@ Werkzeug           3.0.2
 
 
 In order to see what packages you've installed run this command: pip list
+
+
+**Afterwards run your python file and visist this port: http://127.0.0.1:5501/
+
+Now you should be able to see the current bitcoin price and the top currencies.
