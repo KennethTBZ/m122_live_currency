@@ -16,7 +16,7 @@ env_path = ".env"
 
 load_dotenv(dotenv_path=env_path)
 
-# Create instance of flask app
+# Create instance of flask app to create server and debug
 # Tells Flask where to look for templates
 app = Flask(__name__)
 
@@ -38,6 +38,7 @@ class CMC:
     def getTopCurrencies(self, limit=10):
         url = f'{self.apiurl}/v1/cryptocurrency/listings/latest'
         parameters = {'limit': limit}
+        #Session is from the request library. Makes get request with the parameters
         response = self.session.get(url, params=parameters)
         data = response.json()['data']
         # Sort data based on market capitalization and return it
@@ -55,6 +56,7 @@ class CMC:
     def getPrice(self, symbol):
         url = self.apiurl + '/v1/cryptocurrency/quotes/latest'
         parameters = {'symbol': symbol}
+        #Session is from the request library. Makes get request with the parameters
         response = self.session.get(url, params=parameters)
         data = response.json()
         return data
@@ -64,7 +66,7 @@ def send_email(receiver_email, message):
     port = 587
     email = os.getenv('EMAIL')
     password = os.getenv('PASSWORD')
-    
+    # Infos about the email
     msg = MIMEMultipart()
     msg['From'] = email
     msg['To'] = receiver_email
@@ -87,8 +89,10 @@ cmc = CMC(os.getenv("API_KEY"))
 @app.route("/")
 #main function
 def home():
+    #Creaet variables for bitcoin price and top currencies
     btc_price = cmc.getPrice('BTC')['data']['BTC']['quote']['USD']['price']
     top_currencies = cmc.getTopCurrencies()
+    #Email
     email_message = f"Current Bitcoin Price\n${btc_price}\n\nTop 10 Cryptocurrencies\n"
     for currency in top_currencies:
         email_message += f"{currency['name']}: ${currency['quote']['USD']['price']}\n"
