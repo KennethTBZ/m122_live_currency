@@ -46,7 +46,8 @@ In order to see what packages you've installed run this command: pip list
 
 Now you should be able to see the current bitcoin price and the top currencies.
 
-
+Crontab Dokumentation:
+To open the crontab editor run this command in Ubuntu: conrtab -e
 
 **Testprotokoll**
 
