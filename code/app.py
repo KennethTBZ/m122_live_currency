@@ -1,3 +1,8 @@
+# Created: March 2024
+# Author: Kenneth Dang
+# Description: This program fetches cryptocurrency prices from the CoinMarketCap API, displays them on a website, and sends an email with the current prices.
+# Dependencies: Flask, requests, python-dotenv
+ 
 from flask import Flask, render_template
 from requests import Session
 from dotenv import load_dotenv
@@ -8,6 +13,7 @@ from email.mime.text import MIMEText
 
 # Create Flask app instance
 app = Flask(__name__)
+
 # Load environment variables from .env file
 load_dotenv()
 

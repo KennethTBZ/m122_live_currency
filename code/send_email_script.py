@@ -1,3 +1,8 @@
+# Created: March 2024
+# Author: Kenneth Dang
+# Description: This program fetches cryptocurrency prices from the CoinMarketCap API, sends an email with the current prices and is used for cronjobs.
+# Dependencies: requests, python-dotenv
+
 import os
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -71,8 +76,6 @@ def send_email(receiver_email, message):
 
 def main():
     cmc = CoinMarketCap(os.getenv('API_KEY'))
-    
-    # Fetch Bitcoin price and top cryptocurrencies
     btc_price = cmc.get_price('BTC')['data']['BTC']['quote']['USD']['price']
     top_currencies = cmc.get_top_currencies()
     
