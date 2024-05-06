@@ -71,6 +71,8 @@ def send_email(receiver_email, message):
 
 def main():
     cmc = CoinMarketCap(os.getenv('API_KEY'))
+    
+    # Fetch Bitcoin price and top cryptocurrencies
     btc_price = cmc.get_price('BTC')['data']['BTC']['quote']['USD']['price']
     top_currencies = cmc.get_top_currencies()
     

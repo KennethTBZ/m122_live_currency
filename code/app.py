@@ -19,14 +19,14 @@ class CMC:
         self.session = Session()
         self.session.headers.update(self.headers)
 
-    def getPrice(self, symbol):
+    def get_price(self, symbol):
         url = self.apiurl + '/v1/cryptocurrency/quotes/latest'
         parameters = {'symbol': symbol}
         r = self.session.get(url, params=parameters)
         data = r.json()
         return data
 
-    def getTopCurrencies(self, limit=5):
+    def get_top_currencies(self, limit=5):
         url = f'{self.apiurl}/v1/cryptocurrency/listings/latest'
         parameters = {'limit': limit}
         r = self.session.get(url, params=parameters)
@@ -51,9 +51,11 @@ def send_email(receiver_email, message):
     msg['To'] = receiver_email
     msg['Subject'] = "Top Cryptocurrencies Prices"
 
+    # Attach message body
     msg.attach(MIMEText(message, 'plain'))
 
     try:
+        # Establish connection and send email
         server = smtplib.SMTP(smtp_server, port)
         server.starttls()
         server.login(email, password)
@@ -66,17 +68,23 @@ def send_email(receiver_email, message):
 cmc = CMC(os.getenv('API_KEY'))
 
 # Send email when the program starts
-btc_price = cmc.getPrice('BTC')['data']['BTC']['quote']['USD']['price']
-top_currencies = cmc.getTopCurrencies()
+btc_price = cmc.get_price('BTC')['data']['BTC']['quote']['USD']['price']
+top_currencies = cmc.get_top_currencies()
+
+# Compose email message
 email_message = f"Current Bitcoin Price\n${btc_price}\n\nTop 5 Cryptocurrencies\n"
 for currency in top_currencies:
     email_message += f"{currency['name']}: ${currency['price']}\n"
 receiver_email = os.getenv('RECEIVER_EMAIL')
+
+# Send email
 send_email(receiver_email, email_message)
 
+# Define Flask route for homepage
 @app.route("/")
 def home():
     return render_template("index.html", btc_price=btc_price, top_currencies=top_currencies)
 
+# Run the Flask application
 if __name__ == '__main__':
     app.run(debug=bool(os.getenv('DEBUG')), port=int(os.getenv('PORT')))
