@@ -16,6 +16,7 @@ This Python script retrieves the current price of Bitcoin and the top 5 cryptocu
     PASSWORD=your_email_password
     RECEIVER_EMAIL=recipient_email@example.com
     ```
+4. Run the app.py file and open this link to see our website: http://127.0.0.1:5500/
    
 ## Notes
 - The email functionality only supports Gmail. If you're using a different email provider, you might need to modify the SMTP server settings.
