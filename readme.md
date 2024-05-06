@@ -40,4 +40,6 @@ In order to see what packages you've installed run this command: pip list
 
 **Afterwards run your python file and visist this port: http://127.0.0.1:5501/**
 
+**Also make sure to change the data according to you in the .env file**
+
 Now you should be able to see the current bitcoin price and the top currencies.
