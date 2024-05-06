@@ -42,6 +42,8 @@ In order to see what packages you've installed run this command: pip list
 
 **Also make sure to change the data according to you in the .env file**
 
+*Note that the email unction only works with an gmail account. I made another gmail for this project.*
+
 Now you should be able to see the current bitcoin price and the top currencies.
 
 
