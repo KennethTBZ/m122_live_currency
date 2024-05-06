@@ -43,3 +43,17 @@ In order to see what packages you've installed run this command: pip list
 **Also make sure to change the data according to you in the .env file**
 
 Now you should be able to see the current bitcoin price and the top currencies.
+
+
+
+**Testprotokoll**
+
+Man kriegt die API Daten als JSON format und kann sie in der Konsole ausgeben: OK
+Man kann die spezifische Daten einer Währung speichern(z.B Preis oder Kürzel): OK
+Man kann die Top Kryptowährungen nach Markt Kapitalisierung darstellen und einen Limit festlegen(z.B 10): OK
+Man kann alle Daten in index.html benutzen und auf einer Webseite darstellen lassen: OK
+Beim reloaden der Webseite wird ein Email mit den entsprechenden Daten geschickt: OK
+Skript wird im 10 minuten Takt ausgeführt: OK
+Logging-Daten werden in einer Text datei geschrieben: OK
+
+Bemerkung: Das Programm funktioniert hauptsächlich einwandfrei. Beim Cronjob kommt es jedoch manchmal zu einer Koflikt, weil der gleiche Port vom Server mehrmals benutzt wird.
