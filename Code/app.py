@@ -1,3 +1,9 @@
+# Created: March, 2024
+# @author Aryan Bisen
+# This programm makes a get request to the API of Coin Market Cap. Functions make it possable to return the current Bitcion price as well
+# as the top crypto currencies by market cap. It stores it in a variable and it gets used in index.html to display the data. 
+
+
 from flask import Flask, render_template
 from requests import Session
 import os
@@ -6,26 +12,29 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-
 env_path = ".env"
 
 load_dotenv(dotenv_path=env_path)
 
+# Create instance of flask app
+# Tells Flask where to look for templates
 app = Flask(__name__)
 
+#CMC class
 class CMC:
+    # intitialize function
     def __init__(self, token):
         self.apiurl = 'https://pro-api.coinmarketcap.com'
         self.headers = {'Accepts': 'application/json', 'X-CMC_PRO_API_KEY': token}
         self.session = Session()
         self.session.headers.update(self.headers)
-
+    # Get all info from every coin
     def getAllCoins(self):
         url = self.apiurl + '/v1/cryptocurrency/map'
         response = self.session.get(url)
         data = response.json()['data']
         return data
-# Top Crypto currencies by market cap
+    # Top Crypto currencies by market cap. Limit = 10
     def getTopCurrencies(self, limit=10):
         url = f'{self.apiurl}/v1/cryptocurrency/listings/latest'
         parameters = {'limit': limit}
@@ -35,6 +44,7 @@ class CMC:
         # Biggest first
         sorted_data = sorted(data, key=lambda x: x['quote']['USD']['market_cap'], reverse=True)
         print("\nTop 10 cryptocurrencies by market capitalization:")
+        # Loops till the top 10 are throw
         for i, currency in enumerate(sorted_data[:limit], start=1):  # Use sorted_data here
             name = currency['name']
             symbol = currency['symbol']
